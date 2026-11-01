@@ -6,6 +6,8 @@
 int print_exponentiation(void);
 int print_transposed(void);
 int print_determinate(void);
+int print_summa(void);
+int print_subtraction(void);
 void clean_input(void) {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {
@@ -58,7 +60,25 @@ int main() {
                 break;
             }
             case '2':
-                printf("Я такое пока не умею\n");
+                char flag_mode_two;
+                printf("Выберите действие: сложение - 1, вычитание - 2, умножение - 3: "); 
+                scanf(" %c", &flag_mode_two);
+                clean_input();
+
+                switch (flag_mode_two) {
+                    case '1':
+                        print_summa();
+                        break;
+                    case '2':
+                        print_subtraction();
+                        break;
+                    case '3':
+                        print_determinate();
+                        break;
+                    default:
+                        printf("Вы ввели что-то не то\n");
+                        break;
+                }
                 break;
             default:
                 printf("Вы ввели что-то не то\n");
@@ -147,4 +167,65 @@ int print_determinate(void) {
 
     free(matrix);
     return 0;
+}
+
+int print_summa(void) {
+    int m1, n1;
+    int m2, n2;
+    int *matrix_1 = matrix_input(&m1, &n1);
+    if (matrix_1 == NULL) {
+        return 1;
+    }
+    int *matrix_2 = matrix_input(&m2, &n2);
+    if (matrix_2 == NULL) {
+        return 1;
+    }
+
+    int *summa = subtraction_matrixes(matrix_1, matrix_2, m1, n1, m2, n2);
+    if (summa == NULL) {
+        free(summa);
+        return 1;
+    }
+    printf("Разность матриц:\n");
+    for (int i = 0; i < m1; i++) {
+        for (int j = 0; j < n1; j++) {
+            printf("%d ", *(summa + i * n1 + j));
+        }
+        printf("\n");
+    }
+    free(matrix_1);
+    free(matrix_2);
+    free(summa);
+
+}
+int print_subtraction(void) {
+    int m1, n1;
+    int m2, n2;
+    int *matrix_1 = matrix_input(&m1, &n1);
+    if (matrix_1 == NULL) {
+        return 1;
+    }
+    int *matrix_2 = matrix_input(&m2, &n2);
+    if (matrix_2 == NULL) {
+        return 1;
+    }
+    if (m1 != m2 || n1 != n2) {
+        printf("Можно вводить только матрицы одинаковых размеров\n");
+        return 1;
+    }
+    int *summa = subtraction_matrixes(matrix_1, matrix_2, m1, n1, m2, n2);
+    if (summa == NULL) {
+        free(summa);
+        return 1;
+    }
+    printf("Сумма матриц:\n");
+    for (int i = 0; i < m1; i++) {
+        for (int j = 0; j < n1; j++) {
+           printf("%d ", *(summa + i * n1 + j));
+        }
+        printf("\n");
+    }
+    free(matrix_1);
+    free(matrix_2);
+    free(summa);
 }

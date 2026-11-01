@@ -37,5 +37,6 @@ int *matrix_input(int *m, int *n) {
             matrix[i * (*n) + j] = (int)temp; 
         }
     }
+    clean_input();
     return matrix;
 }
