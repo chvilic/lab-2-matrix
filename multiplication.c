@@ -16,10 +16,15 @@ int *multiplication_matrixes(const int *matrix_1, const int *matrix_2, int m1, i
     }
     for (int i = 0; i < m1; i++) {
         for (int j = 0; j < n2; j++) {
-            int summa = 0;
+            long long summa = 0;
             *(result + i * m1 + j) = 0;
             for (int r = 0; r < n1; r++) {
                 summa += *(matrix_1 + i * m1 + r) * *(matrix_2 + r * m2 + j);
+                if (summa >= INT_MAX || summa <= INT_MIN) {
+                    free(result);
+                    free(time);
+                    return NULL;
+                }
             }
             *(result + i * m1 + j) += summa;
         }

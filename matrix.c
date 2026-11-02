@@ -24,7 +24,7 @@ int *matrix_input(int *m, int *n) {
         printf("Ошибка формата ввода\n");
         return NULL;
     }
-    p++;                                  // skip the separator ('x')
+    p++;
     long nn = strtol(p, &q, 10);
     if (q == p) {
         printf("Ошибка формата ввода\n");
@@ -44,7 +44,6 @@ int *matrix_input(int *m, int *n) {
     p = line;
     for (int i = 0; i < *m; i++) {
         for (int j = 0; j < *n; j++) {
-            // skip spaces; fetch the next line when the current one is used up
             while (1) {
                 while (*p == ' ' || *p == '\t') p++;
                 if (*p != '\0') break;

@@ -9,18 +9,15 @@ int print_determinate(void);
 int print_summa(void);
 int print_subtraction(void);
 int print_multiplication(void);
-void clean_input(void) {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF) {
-    }
-}
 int read_line(char *buf, int size) {
 
     if (fgets(buf, size, stdin) == NULL) {
         return 0;
     }
     if (strchr(buf, '\n') == NULL) {
-        clean_input();
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF) {
+        }
     } else {
         buf[strcspn(buf, "\n")] = '\0';
     }
