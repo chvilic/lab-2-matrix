@@ -22,7 +22,16 @@ int *exponation(const int *matrix, int m, int n, int degree) {
             for (int j = 0; j < n; j++) {
                 *(time + i * n + j) = 0;
                 for (int k = 0; k < n; k++) {
-                *(time + i * n + j) += *(result + i * n + k) * *(matrix + k * n + j);
+                    *(time + i * n + j) = 0;
+                    long long temp = (long long)*(result + i * n + k) * *(matrix + k * n + j);
+                    if (temp > INT_MAX || temp < INT_MIN) {
+                        printf("При сложении появляются слишком большие числа\n");
+                        free(result);
+                        free(time);
+                        return NULL;
+                    }
+                    *(time + i * n + j) = (int)temp;
+                
                 }
             }
         }

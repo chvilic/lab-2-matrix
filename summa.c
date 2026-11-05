@@ -16,11 +16,13 @@ int *summa_matrixes(const int *matrix_1, const int *matrix_2, int m1, int n1, in
     if (s == NULL) return NULL;
     for (int i = 0; i < m1; i++) {
         for (int j = 0; j < n1; j++) {
-            *(s + i * n1 + j) = *(matrix_1 + i * n1 + j) + *(matrix_2 + i * n1 + j);
-            if (*s > INT_MAX || *s < INT_MIN) {
+            long long temp = (long long)*(matrix_1 + i * n1 + j) + *(matrix_2 + i * n1 + j);
+            if (temp > INT_MAX || temp < INT_MIN) {
                 printf("При сложении появляются слишком большие числа\n");
+                free(s);
                 return NULL;
             }
+            *(s + i * n1 + j) = (int)temp;
         }
     }
     return s;
